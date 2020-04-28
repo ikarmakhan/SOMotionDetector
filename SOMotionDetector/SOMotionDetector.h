@@ -40,7 +40,8 @@ typedef enum
 @protocol SOMotionDetectorDelegate <NSObject>
 
 @optional
-- (void)motionDetector:(SOMotionDetector *)motionDetector motionTypeChanged:(SOMotionType)motionType;
+- (void)motionDetector:(SOMotionDetector *)motionDetector motionTypeChanged:(SOMotionType)motionType withConfidence:(CMMotionActivityConfidence)confidence;
+//- (void)motionDetector:(SOMotionDetector *)motionDetector motionTypeChanged:(SOMotionType)motionType;
 - (void)motionDetector:(SOMotionDetector *)motionDetector locationChanged:(CLLocation *)location;
 - (void)motionDetector:(SOMotionDetector *)motionDetector accelerationChanged:(CMAcceleration)acceleration;
 - (void)motionDetector:(SOMotionDetector *)motionDetector locationWasPaused:(BOOL)changed;
@@ -54,8 +55,8 @@ typedef enum
 
 #pragma mark - Properties
 @property (weak, nonatomic) id<SOMotionDetectorDelegate> delegate DEPRECATED_MSG_ATTRIBUTE(" Use blocks instead");
-
-@property (copy) void (^motionTypeChangedBlock) (SOMotionType motionType);
+@property (copy) void (^motionTypeChangedBlock) (SOMotionType motionType,NSInteger confidence );
+//@property (copy) void (^motionTypeChangedBlock) (SOMotionType motionType);
 @property (copy) void (^locationChangedBlock) (CLLocation *location);
 @property (copy) void (^accelerationChangedBlock) (CMAcceleration acceleration);
 @property (copy) void (^locationWasPausedBlock) (BOOL changed);

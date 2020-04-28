@@ -141,13 +141,13 @@ CGFloat kMinimumRunningAcceleration = 3.5f;
                     self.previousMotionType = self.motionType;
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-                    if (self.delegate && [self.delegate respondsToSelector:@selector(motionDetector:motionTypeChanged:)]) {
-                        [self.delegate motionDetector:self motionTypeChanged:self.motionType];
+                    if (self.delegate && [self.delegate respondsToSelector:@selector(motionDetector:motionTypeChanged:withConfidence:)]) {
+                        [self.delegate motionDetector:self motionTypeChanged:self.motionType withConfidence:activity.confidence];
                     }
 #pragma GCC diagnostic pop
                     
                     if (self.motionTypeChangedBlock) {
-                        self.motionTypeChangedBlock (self.motionType);
+                        self.motionTypeChangedBlock (self.motionType,activity.confidence);
                     }
                 }
             });
@@ -210,17 +210,19 @@ CGFloat kMinimumRunningAcceleration = 3.5f;
         dispatch_async(dispatch_get_main_queue(), ^{
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-            if (self.delegate && [self.delegate respondsToSelector:@selector(motionDetector:motionTypeChanged:)]) {
-                [self.delegate motionDetector:self motionTypeChanged:self.motionType];
-            }
+                    if (self.delegate && [self.delegate respondsToSelector:@selector(motionDetector:motionTypeChanged:withConfidence:)]) {
+                        [self.delegate motionDetector:self motionTypeChanged:self.motionType withConfidence:-1];
+                    }
 #pragma GCC diagnostic pop
-            
-            if (self.motionTypeChangedBlock) {
-                self.motionTypeChangedBlock (self.motionType);
-            }
-        });
+                    
+                    if (self.motionTypeChangedBlock) {
+                        self.motionTypeChangedBlock (self.motionType,-1);
+                    }
+            });
     }
 }
+
+
 
 - (void)detectShaking
 {

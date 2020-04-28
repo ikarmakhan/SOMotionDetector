@@ -46,7 +46,7 @@
     [super viewDidLoad];
 
     __weak ViewController *weakSelf = self;
-    [SOMotionDetector sharedInstance].motionTypeChangedBlock = ^(SOMotionType motionType) {
+    [SOMotionDetector sharedInstance].motionTypeChangedBlock = ^(SOMotionType motionType, NSInteger confidence) {
         NSString *type = @"";
         switch (motionType) {
             case MotionTypeNotMoving:
