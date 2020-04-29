@@ -204,7 +204,7 @@ CGFloat kMinimumRunningAcceleration = 3.5f;
     }
     
     // If type was changed, then call delegate method
-    if (self.motionType != self.previousMotionType) {
+    //if (self.motionType != self.previousMotionType) {
         self.previousMotionType = self.motionType;
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -219,7 +219,7 @@ CGFloat kMinimumRunningAcceleration = 3.5f;
                         self.motionTypeChangedBlock (self.motionType,-1);
                     }
             });
-    }
+    //}
 }
 
 
